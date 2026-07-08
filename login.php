@@ -12,13 +12,13 @@
         <div class="row justify-content-center">
             <div class="col-md-4">
                 <div class="card shadow p-4">
-                    <h3 class="text-center mb-3">Connexion Rédacteur</h3>
+                    <h3 class="text-center mb-3">Connexion</h3>
                     
                     <?php if (isset($_SESSION['error_login'])): ?>
                         <div class="alert alert-danger">
                             <?= $_SESSION['error_login']; ?>
                         </div>
-                        <?php unset($_SESSION['error_login']); // Lo borramos para que no salga siempre ?>
+                        <?php unset($_SESSION['error_login']); ?>
                     <?php endif; ?>
 
                     <form action="submit-login.php" method="POST">
