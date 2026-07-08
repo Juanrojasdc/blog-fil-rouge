@@ -28,9 +28,12 @@
     // ============================================
     // 1. CONNEXION À LA BASE DE DONNÉES
     // ============================================
-    // On se connecte à la BDD en incluant le fichier de connexion
-   include('connect.php');
-    // Si tout va bien, on peut continuer
+// Inclusion de la connexion à la base de données
+require(__DIR__ . '/connect.php');
+
+// Inclusion des fonctions (notamment redirectToUrl et la liste des abonnés)
+include(__DIR__ . '/functions.php');
+
 
 
     // ============================================
