@@ -81,7 +81,7 @@ if (!isset($getData['id']) || !is_numeric($getData['id'])) {
             <button type="submit" class="btn btn-outline-danger">Oui !</button>
 
             <!-- Lien pour annuler et retourner à la liste (sans supprimer) -->
-            <a class="btn btn-outline-primary" role="button" href="php050-R.php">Non, RETOUR</a>
+            <a class="btn btn-outline-primary" role="button" href="index.php">Non, RETOUR</a>
         </form>
         <br />
     </div>

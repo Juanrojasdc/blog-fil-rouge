@@ -58,7 +58,7 @@ include('connect.php');
                 <textarea class="form-control" id="contenu" name="contenu" required></textarea>
             </div>
             <button type="submit" class="btn btn-primary">Envoyer</button>
-            <a class="btn btn-secondary" href="php050-R.php">Retour</a>
+            <a class="btn btn-secondary" href="index.php">Retour</a>
         </form>
     </div>
 

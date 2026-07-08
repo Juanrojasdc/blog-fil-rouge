@@ -130,7 +130,7 @@ if (!$article) {
 
             <!-- BOUTONS D'ACTION -->
             <button type="submit" class="btn btn-outline-primary">Envoyer</button>
-            <a class="btn btn-outline-dark" role="button" href="php050-R.php">RETOUR</a>
+            <a class="btn btn-outline-dark" role="button" href="index.php">RETOUR</a>
         </form>
         <br />
     </div>

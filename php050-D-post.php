@@ -71,7 +71,7 @@ $deleteArticleStatement->execute([
     <p>C'est supprimé !</p> <br>
 
     <!-- Bouton pour retourner à la liste des articles -->
-    <a class="btn btn-outline-primary" role="button" href="php050-R.php">RETOUR</a>
+    <a class="btn btn-outline-primary" role="button" href="index.php">RETOUR</a>
 </body>
 
 </html>
@@ -117,7 +117,7 @@ NOTES PÉDAGOGIQUES :
    - Alternative : "soft delete" (marquer comme supprimé sans effacer)
 
 7. FLUX COMPLET DE LA SUPPRESSION :
-   Liste des articles (php050-R.php)
+   Liste des articles (index.php)
         ↓ Clic sur "Supprimer"
    Page de confirmation (php050-D.php?id=5)
         ↓ Clic sur "Oui !"
@@ -135,7 +135,7 @@ NOTES PÉDAGOGIQUES :
      * UPDATE au lieu de DELETE pour marquer comme supprimé
      * Permet de récupérer les articles supprimés par erreur
    - Logger les suppressions (qui, quand, quoi) pour l'audit
-   - Rediriger automatiquement vers php050-R.php au lieu d'afficher une page
+   - Rediriger automatiquement vers index.php au lieu d'afficher une page
    - Ajouter un système de permissions (qui a le droit de supprimer ?)
    - Utiliser AJAX pour supprimer sans recharger la page
 
@@ -147,7 +147,7 @@ NOTES PÉDAGOGIQUES :
 
 10. RÉCAPITULATIF CRUD COMPLET :
     CREATE (C) : php050-C.php + php050-C-post.php → INSERT INTO
-    READ (R)   : php050-R.php → SELECT
+    READ (R)   : .php → SELECT
     UPDATE (U) : php050-U.php + php050-U-post.php → UPDATE ... WHERE
     DELETE (D) : php050-D.php + php050-D-post.php → DELETE FROM ... WHERE
 -->

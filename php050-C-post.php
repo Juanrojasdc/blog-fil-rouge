@@ -107,7 +107,7 @@ $insertcontenu->execute([
         </div>
 
         <!-- Bouton pour retourner à la liste des articles (READ) -->
-        <a class="btn btn-primary" role="button" href="php050-R.php">RETOUR</a>
+        <a class="btn btn-primary" role="button" href="index.php">RETOUR</a>
     </div>
 </body>
 
@@ -154,7 +154,7 @@ NOTES PÉDAGOGIQUES IMPORTANTES :
 
 5. AMÉLIORATION POSSIBLE :
    - Utiliser htmlspecialchars() lors de l'affichage pour encore plus de sécurité
-   - Rediriger vers php050-R.php au lieu d'afficher une page de confirmation
+   - Rediriger vers index.php au lieu d'afficher une page de confirmation
    - Ajouter un try/catch pour gérer les erreurs SQL
    - Valider le format de l'auteur (pas de chiffres par exemple)
 -->

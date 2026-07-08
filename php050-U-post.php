@@ -110,7 +110,7 @@ $insertcontenuStatement->execute([
     </div>
 
     <!-- Bouton pour retourner à la liste des articles -->
-    <a class="btn btn-primary" role="button" href="php050-R.php">RETOUR</a>
+    <a class="btn btn-primary" role="button" href="index.php">RETOUR</a>
 </body>
 
 </html>
@@ -163,7 +163,7 @@ NOTES PÉDAGOGIQUES :
 7. AMÉLIORATION POSSIBLE :
    - Vérifier que l'article existe avant de le modifier (SELECT puis UPDATE)
    - Utiliser htmlspecialchars() pour l'affichage
-   - Rediriger directement vers php050-R.php au lieu d'afficher une page de confirmation
+   - Rediriger directement vers index.php au lieu d'afficher une page de confirmation
    - Ajouter un système de permissions (qui a le droit de modifier ?)
    - Logger les modifications (historique des changements)
 -->
