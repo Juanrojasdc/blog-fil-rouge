@@ -15,13 +15,12 @@ include(__DIR__ . '/functions.php');
 if (isset($_POST['mail']) && isset($_POST['mdp'])) {
     
     $email = trim($_POST['mail']);
-    $password = trim($_POST['mdp']);
+    $password = trim($_POST['mdp']); // Esto es para eliminar espacios en blanco al inicio y al final del correo y la contraseña
 
-    // LEEMOS LA BASE DE DATOS (Buscamos si existe un usuario con ese email en users)
-    // Nota: Revisa en tu phpMyAdmin si las columnas se llaman 'mail' y 'pswd' como en el ejemplo de raphael
-  $sql = 'SELECT * FROM users WHERE email = :mail_recibido';
-    $query = $mysqlClient->prepare($sql);
-    $query->execute(['mail_recibido' => $email]);
+    // Buscamos si existe un usuario con ese email en users, o sea una consulta sql para traer los datos de ese usuario
+  $sql = 'SELECT * FROM users WHERE email = :mail_recibido'; 
+    $query = $mysqlClient->prepare($sql); 
+    $query->execute(['mail_recibido' => $email]); 
     
     $user = $query->fetch(); // Trae los datos de ese usuario (o false si no existe)
 
@@ -38,7 +37,7 @@ if (isset($_POST['mail']) && isset($_POST['mdp'])) {
         exit();
         
     } else {
-        // ERROR: Si el correo o la contraseña fallan
+        // error por Si el correo o la contraseña fallan
         $_SESSION['error_login'] = "Identifiants incorrects (Email ou Mot de passe invalide).";
         header('Location: login.php');
         exit();
