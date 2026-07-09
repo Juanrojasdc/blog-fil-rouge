@@ -99,50 +99,6 @@ function redirectToUrl(string $url): never
     exit();
 }
 
-
-// ============================================================================
-// GESTION DE LA DÉCONNEXION
-// ============================================================================
-
-/*
- * Déconnexion de l'utilisateur
- *
- * Ce code vérifie si l'utilisateur a cliqué sur le lien "Déconnexion".
- * Si oui, il détruit la session et redirige vers l'accueil.
- *
- * Déclenchement : Lorsque l'URL contient ?action=logout
- */
-if (isset($_GET['action']) && $_GET['action'] === 'logout') {
-    // Démarrage de la session (nécessaire pour la manipuler)
-    session_start();
-
-    // Suppression de toutes les variables de session (LOGGED_USER, etc.)
-    session_unset();
-
-    // Destruction complète de la session
-    session_destroy();
-
-    // Redirection vers la page d'accueil
-    header("Location:index.php");
-    exit();
-}
-
-
-
-
-// ============================================================================
-// REQUÊTES SQL - RÉCUPÉRATION DES DONNÉES
-// ============================================================================
-
-/*
- * Récupération de tous les articles de presse avec leurs informations de match
- *
- * Cette requête utilise une jointure LEFT JOIN pour combiner :
- * - Les articles de la table s2_articles_presse
- * - Les résultats sportifs de la table s2_resultats_sportifs
- *
- * LEFT JOIN : Garde tous les articles, même ceux sans match associé
- */
 $sqlQuery = '
     SELECT a.id, a.titre, a.contenu, a.date_publication, r.score, r.lieu
     FROM s2_articles_presse a
@@ -184,3 +140,36 @@ $bddMatch = $mysqlClient->prepare($sqlQueryMatches);
 $bddMatch->execute();
 // $Matches contient un tableau avec tous les matchs
 $Matches = $bddMatch->fetchAll();
+
+/**
+ * Slugify una cadena de texto para crear URLs amigables
+ */
+function slugify(string $text): string
+{
+    // pasar todo a minúsculas
+    $text = strtolower($text);
+
+    // reemplazar caracteres acentuados y especiales por sus equivalentes sin acento
+    $text = str_replace(['é', 'è', 'à', 'ç', 'ù'], ['e', 'e', 'a', 'c', 'u'], $text);
+
+    // reemplazar espacios por guiones
+    $text = str_replace(' ', '-', $text);
+
+    // eliminar cualquier carácter que no sea letra, número o guion
+    $text = preg_replace('/[^a-z0-9\-]/', '', $text);
+
+    return $text;
+}
+
+// *
+//  funcion createArticleUrl()
+//  @param int $id es el ID del artículo
+//  @param string $titre es el título del artículo
+//  @return string la URL formateada para el web y el SEO
+// *
+function createArticleUrl( int $id, string $titre): string
+{
+    $titrePropre = slugify($titre);
+    $url = 'article/' . $id . '-' . $titrePropre . '.html';
+    return $url;
+}

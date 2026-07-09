@@ -155,7 +155,7 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
              </button>
 
              <!-- Bouton de retour à la page d'accueil -->
-             <a class="btn btn-primary" role="button" href="index.php">RETOUR</a>
+             <a class="btn btn-primary" role="button" href="/blog-php/index.php">RETOUR</a>
 
              <!-- Zone d'alerte pour le partage (affichée par JavaScript) -->
              <div id="shareAlert" class="alert"></div>

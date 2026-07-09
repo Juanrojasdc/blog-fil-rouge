@@ -17,7 +17,7 @@
                 
                 <?php if (isset($_SESSION['user_connected']) && $_SESSION['user_role'] === 'ADMIN'): ?>
                     <li class="nav-item">
-                        <a class="nav-link text-success fw-bold" href="php050-C.php">+ Ajouter un article</a>
+                        <a class="nav-link text-success fw-bold" href="add.php">+ Ajouter un article</a>
                     </li>
                 <?php endif; ?>
             </ul>

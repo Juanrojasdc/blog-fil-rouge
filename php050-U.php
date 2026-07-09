@@ -144,7 +144,7 @@ if (!$article) {
 NOTES PÉDAGOGIQUES :
 
 1. DIFFÉRENCE ENTRE CREATE ET UPDATE :
-   - CREATE (php050-C.php) : formulaire vide, on crée un nouvel article
+   - CREATE (add.php) : formulaire vide, on crée un nouvel article
    - UPDATE (php050-U.php) : formulaire pré-rempli, on modifie un article existant
 
 2. UTILISATION DE $_GET :

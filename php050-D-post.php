@@ -146,7 +146,7 @@ NOTES PÉDAGOGIQUES :
    - En production, ajouter un token CSRF pour empêcher les attaques
 
 10. RÉCAPITULATIF CRUD COMPLET :
-    CREATE (C) : php050-C.php + php050-C-post.php → INSERT INTO
+    CREATE (C) : add.php + php050-C-post.php → INSERT INTO
     READ (R)   : .php → SELECT
     UPDATE (U) : php050-U.php + php050-U-post.php → UPDATE ... WHERE
     DELETE (D) : php050-D.php + php050-D-post.php → DELETE FROM ... WHERE

@@ -1,0 +1,6 @@
+# 1. Activar el motor de reescritura de URLs
+RewriteEngine On
+
+# 2. Regla de redirección interna para los artículos
+# Captura el ID (número) y el slug (texto) y se los envía en secreto a article.php
+RewriteRule ^article/([0-9]+)-([a-z0-9\-]+)\.html$ article.php?id=$1 [L]

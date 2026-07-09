@@ -15,7 +15,7 @@ $newsFraiches = $mysqlClient->prepare($sqlQuery);
 $newsFraiches->execute();
 $news = $newsFraiches->fetchAll();
 
-function truncateString($string, $length = 20) {
+function truncateString(string $string, int $length = 20): string {
     if (strlen($string) > $length) {
         return substr($string, 0, $length) . ' (...)';
     }
@@ -52,7 +52,7 @@ function truncateString($string, $length = 20) {
                             </div>
                             
                             <div class="mt-3">
-                                <a href="article.php?id=<?= htmlspecialchars($new['id']); ?>" class="btn btn-sm btn-outline-primary w-100 mb-2">Lire l'article</a>
+                               <a href="<?= createArticleUrl((int)$new['id'], $new['titre']); ?>" class="btn btn-sm btn-outline-primary w-100 mb-2">Lire l'article</a>
                                 
                                 <?php if (isset($_SESSION['user_connected']) && $_SESSION['user_role'] === 'ADMIN'): ?>
                                     <div class="d-flex justify-content-between border-top pt-2">
