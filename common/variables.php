@@ -10,5 +10,7 @@ $whitelist = array(
     'editpost' => "Modifier",
     'delete' => "Supprimer",
     'deletepost' => "Supprimer",
-    'articles' => "Article"
+    'articles' => "Article",
+    'login' => "Connexion",
+    'logout' => "Déconnexion",
 );

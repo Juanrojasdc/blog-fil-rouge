@@ -2,7 +2,7 @@
 
 session_start();
 
-require(__DIR__ . '/connect.php');
+require(__DIR__ . '/db.php');
 include(__DIR__ . '/functions.php');
 
 $sqlQuery = '
