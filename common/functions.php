@@ -170,6 +170,6 @@ function slugify(string $text): string
 function createArticleUrl( int $id, string $titre): string
 {
     $titrePropre = slugify($titre);
-    $url = 'article/' . $id . '-' . $titrePropre . '.html';
+    $url = '../pages/articles.php?id=' . $id . '&titre=' . $titrePropre;
     return $url;
 }

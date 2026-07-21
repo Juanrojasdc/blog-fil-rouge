@@ -3,10 +3,10 @@
 session_start();
 
 // Inclusion de la connexion à la base de données
-require(__DIR__ . '/connect.php');
+require(__DIR__ . '../common/bdd.php');
 
 // Inclusion des fonctions (notamment redirectToUrl et la liste des abonnés)
-include(__DIR__ . '/functions.php');
+include(__DIR__ . '../common/functions.php');
 
 
   // ÉTAPE 1 : Validation du format de l'email

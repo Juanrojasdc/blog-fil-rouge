@@ -17,7 +17,7 @@
                 
                 <?php if (isset($_SESSION['user_connected']) && $_SESSION['user_role'] === 'ADMIN'): ?>
                     <li class="nav-item">
-                        <a class="nav-link text-success fw-bold" href="add.php">+ Ajouter un article</a>
+                        <a class="nav-link text-success fw-bold" href="../pages/add.php">+ Ajouter un article</a>
                     </li>
                 <?php endif; ?>
             </ul>
@@ -28,9 +28,9 @@
                         Bienvenue, <strong><?= htmlspecialchars($_SESSION['user_name']); ?></strong> 
                         <span class="badge bg-secondary"><?= htmlspecialchars($_SESSION['user_role']); ?></span>
                     </span>
-                    <a class="btn btn-sm btn-outline-danger" href="logout.php">Déconnexion</a>
+                    <a class="btn btn-sm btn-outline-danger" href="../pages/logout.php">Déconnexion</a>
                 <?php else: ?>
-                    <a class="btn btn-sm btn-outline-light" href="login.php">Connexion</a>
+                    <a class="btn btn-sm btn-outline-light" href="../pages/login.php">Connexion</a>
                 <?php endif; ?>
             </div>
         </div>

@@ -10,8 +10,8 @@
 
 session_start();
 // Inclusion de la connexion à la base de données
-require(__DIR__ . '/connect.php');
-include(__DIR__ . '/functions.php');
+require(__DIR__ . '../common/db.php');
+include(__DIR__ . '../common/functions.php');
 
 // Récupération de toutes les données envoyées par le formulaire
 // $_POST est un tableau contenant toutes les valeurs des champs du formulaire

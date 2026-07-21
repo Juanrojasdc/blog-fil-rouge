@@ -14,7 +14,7 @@
 // ============================================
 // 1. CONNEXION À LA BASE DE DONNÉES
 // ============================================
-include('connect.php');
+include('../common/db.php');
 
 // ============================================
 // 2. RÉCUPÉRATION DES DONNÉES DU FORMULAIRE

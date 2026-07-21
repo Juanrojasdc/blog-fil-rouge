@@ -2,8 +2,8 @@
 
 session_start();
 
-require(__DIR__ . '/db.php');
-include(__DIR__ . '/functions.php');
+require(__DIR__ . '/../common/db.php');
+include(__DIR__ . '/../common/functions.php');
 
 $sqlQuery = '
     SELECT a.id, a.titre, a.contenu, a.date_publication AS textequejeveux, r.score, r.lieu
@@ -33,7 +33,7 @@ function truncateString(string $string, int $length = 20): string {
 <body>
 
     <?php 
-    include(__DIR__ . '/header.php'); 
+    include(__DIR__ . '/../common/header.php'); 
     ?>
 
     <div class="container">

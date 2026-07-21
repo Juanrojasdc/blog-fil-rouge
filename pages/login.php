@@ -31,7 +31,7 @@
                             <input type="password" name="mdp" class="form-control" required>
                         </div>
                         <button type="submit" class="btn btn-primary w-100">Se connecter</button>
-                        <a href="index.php" class="btn btn-link w-100 text-center mt-2">Retour au site (Lecture seule)</a>
+                        <a href="../public/index.php" class="btn btn-link w-100 text-center mt-2">Retour au site (Lecture seule)</a>
                     </form>
 
                 </div>
