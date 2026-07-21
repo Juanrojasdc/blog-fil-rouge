@@ -1,6 +1,18 @@
 <?php
 // Preguntar a raphael si es necesario poner session_start() aquí, ya que en index.php y login.php ya lo tenemos
 ?>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sport 2000 - Actualités</title>
+    
+    <!-- CSS de Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
     <div class="container">
         <a class="navbar-brand" href="index.php">Sport 2000</a>
@@ -17,7 +29,7 @@
                 
                 <?php if (isset($_SESSION['user_connected']) && $_SESSION['user_role'] === 'ADMIN'): ?>
                     <li class="nav-item">
-                        <a class="nav-link text-success fw-bold" href="../pages/add.php">+ Ajouter un article</a>
+                        <a class="nav-link text-success fw-bold" href="index.php?page=add">+ Ajouter un article</a>
                     </li>
                 <?php endif; ?>
             </ul>
@@ -28,9 +40,9 @@
                         Bienvenue, <strong><?= htmlspecialchars($_SESSION['user_name']); ?></strong> 
                         <span class="badge bg-secondary"><?= htmlspecialchars($_SESSION['user_role']); ?></span>
                     </span>
-                    <a class="btn btn-sm btn-outline-danger" href="../pages/logout.php">Déconnexion</a>
+                    <a class="btn btn-sm btn-outline-danger" href="index.php?page=logout">Déconnexion</a>
                 <?php else: ?>
-                    <a class="btn btn-sm btn-outline-light" href="../pages/login.php">Connexion</a>
+                    <a class="btn btn-sm btn-outline-light" href="index.php?page=login">Connexion</a>
                 <?php endif; ?>
             </div>
         </div>

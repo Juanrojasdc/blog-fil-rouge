@@ -1,175 +1,114 @@
 <?php
-/*
+/**
  * Fichier de fonctions utilitaires - functions.php
  * =================================================
- *
  * Ce fichier regroupe toutes les fonctions réutilisables du projet.
- * Il contient également le code de gestion de la déconnexion et
- * les requêtes SQL pour récupérer les données de la base.
- *
- * 🎯 Principe : Éviter de dupliquer du code en centralisant la logique métier
  */
 
-
 // ============================================================================
-// FONCTIONS UTILITAIRES POUR LES MATCHS
+// 1. FONCTIONS UTILITAIRES POUR LES MATCHS
 // ============================================================================
 
-/*
- * Vérifie si un match est actif
- *
- * @param array $match Le tableau associatif représentant un match
- * @return bool True si le match est actif, False sinon
- */
 function isActiveMatch(array $match): bool
 {
-    return $match['is_active'];
+    return isset($match['is_active']) && $match['is_active'];
 }
 
-
-
-/*
- * Récupère uniquement les matchs actifs depuis un tableau de matchs
- *
- * Cette fonction filtre un tableau de matchs pour ne garder que ceux qui sont actifs.
- *
- * @param array $matches Tableau de tous les matchs
- * @return array Tableau contenant uniquement les matchs actifs
- */
 function getActiveMatches(array $matches): array
 {
-    // Initialisation d'un tableau vide pour stocker les matchs actifs
     $active_matches = [];
-
-    // Parcours de tous les matchs
     foreach ($matches as $match) {
-        // Si le match est actif (fonction isActiveMatch)
         if (isActiveMatch($match)) {
-            // On l'ajoute au tableau des matchs actifs
             $active_matches[] = $match;
         }
     }
-
-    // Retour du tableau filtré
     return $active_matches;
 }
 
-
 // ============================================================================
-// GESTION DES COOKIES
+// 2. UTILITAIRES DE TEXTE ET D'URL (Version Formateur - SEO Friendly & Typée)
 // ============================================================================
 
-/*
- * Création d'un cookie pour stocker le prénom de l'utilisateur
- *
- * Les cookies sont des petites données stockées dans le navigateur de l'utilisateur.
- * Ils permettent de garder des informations entre les visites.
- *
- * Note : Dans ce projet, cette fonctionnalité semble peu utilisée.
+/**
+ * Fonction slugify pour nettoyer le titre dans les url SEO friendly
  */
+function slugify(string $text): string
+{
+    // Remplace les caractères non alphanumériques par un tiret
+    $text = preg_replace('~[^\pL\d]+~u', '-', $text);
+    // Translitération
+    $text = iconv('utf-8', 'us-ascii//TRANSLIT', $text);
+    // Supprime les caractères indésirables
+    $text = preg_replace('~[^-\w]+~', '', $text);
+    // Supprime les tirets en début et fin
+    $text = trim($text, '-');
+    // Convertit en minuscules
+    $text = strtolower($text);
+    return empty($text) ? 'n-a' : $text;
+}
+
+// funcion createArticleUrl()
+/**
+ * Genera la URL para ver el detalle de un artículo a través del Front Controller
+ *
+ * @param int $id El ID del artículo.
+ * @param string $titre El título del artículo.
+ * @return string La URL formateada para el Front Controller con SEO slug.
+ */
+function createArticleUrl(int $id, string $titre): string
+{
+    $titrePropre = slugify($titre);
+    return 'index.php?page=articles&id=' . $id . '&titre=' . $titrePropre;
+}
+
+
+/**
+ * Tronquer fonction
+ */
+function truncateString(string $string, int $length = 20): string
+{
+    if (strlen($string) > $length) {
+        return substr($string, 0, $length) . '...';
+    }
+    return $string;
+}
+
+// ============================================================================
+// 3. GESTION DES COOKIES ET REDIRECTIONS
+// ============================================================================
+
+function redirectToUrl(string $url): never
+{
+    header("Location: {$url}");
+    exit();
+}
+
 if (!empty($_REQUEST['firstname'])) {
-    /*
-     * setcookie() crée un cookie avec :
-     * - 'firstname' : nom du cookie
-     * - htmlspecialchars() : sécurise la valeur contre les injections XSS
-     * - time() + (7 * 24 * 60 * 60) : expire dans 7 jours
-     * - "/" : accessible sur tout le site
-     */
     setcookie('firstname', htmlspecialchars($_REQUEST['firstname']), time() + (7 * 24 * 60 * 60), "/");
 }
 
 // ============================================================================
-// FONCTION DE REDIRECTION
+// 4. REQUÊTES GLOBALES (Conservées pour ne pas casser l'ancien code)
 // ============================================================================
 
-/*
- * Redirige l'utilisateur vers une autre page
- *
- * Cette fonction est utilisée après le login pour rediriger vers l'accueil.
- * Le type de retour "never" indique que la fonction arrête l'exécution du script.
- *
- * @param string $url L'URL de destination
- * @return never La fonction ne retourne jamais (elle arrête le script)
- */
-function redirectToUrl(string $url): never
-{
-    // Envoi d'un header HTTP pour rediriger le navigateur
-    header("Location: {$url}");
-    // Arrêt du script pour éviter d'exécuter du code après la redirection
-    exit();
-}
+if (isset($mysqlClient)) {
+    
+    $sqlQuery = '
+        SELECT a.id, a.titre, a.contenu, a.date_publication, r.score, r.lieu
+        FROM s2_articles_presse a
+        LEFT JOIN s2_resultats_sportifs r ON a.match_id = r.id
+        ORDER BY a.date_publication DESC';
+    $newsbdd = $mysqlClient->prepare($sqlQuery);
+    $newsbdd->execute();
+    $news = $newsbdd->fetchAll();
 
-$sqlQuery = '
-    SELECT a.id, a.titre, a.contenu, a.date_publication, r.score, r.lieu
-    FROM s2_articles_presse a
-    LEFT JOIN s2_resultats_sportifs r ON a.match_id = r.id
-    ORDER BY `a`.`date_publication`
-    DESC; ';
+    $sqlQueryAbo = 'SELECT * FROM `s2_abonnes`';
+    $abobdd = $mysqlClient->prepare($sqlQueryAbo);
+    $abobdd->execute();
+    $abonnes = $abobdd->fetchAll();
 
-// Préparation de la requête (sécurise contre les injections SQL)
-$newsbdd = $mysqlClient->prepare($sqlQuery);
-
-// Exécution de la requête
-$newsbdd->execute();
-
-// Récupération de tous les résultats sous forme de tableau associatif
-$news = $newsbdd->fetchAll();
-
-
-/*
- * Récupération de tous les abonnés
- *
- * Cette requête simple récupère tous les utilisateurs enregistrés.
- * Elle est utilisée pour vérifier les identifiants lors de la connexion.
- */
-$sqlQueryAbo = 'SELECT * FROM `s2_abonnes`';
-$abobdd = $mysqlClient->prepare($sqlQueryAbo);
-$abobdd->execute();
-// $abonnes contient un tableau avec tous les abonnés
-$abonnes = $abobdd->fetchAll();
-
-/*
- * Récupération de tous les matchs sportifs
- *
- * Cette requête récupère l'ensemble des résultats sportifs
- * pour les afficher sur la page dédiée.
- */
-$sqlQueryMatches = '
-SELECT * FROM `s2_resultats_sportifs`; ';
-$bddMatch = $mysqlClient->prepare($sqlQueryMatches);
-$bddMatch->execute();
-// $Matches contient un tableau avec tous les matchs
-$Matches = $bddMatch->fetchAll();
-
-/**
- * Slugify una cadena de texto para crear URLs amigables
- */
-function slugify(string $text): string
-{
-    // pasar todo a minúsculas
-    $text = strtolower($text);
-
-    // reemplazar caracteres acentuados y especiales por sus equivalentes sin acento
-    $text = str_replace(['é', 'è', 'à', 'ç', 'ù'], ['e', 'e', 'a', 'c', 'u'], $text);
-
-    // reemplazar espacios por guiones
-    $text = str_replace(' ', '-', $text);
-
-    // eliminar cualquier carácter que no sea letra, número o guion
-    $text = preg_replace('/[^a-z0-9\-]/', '', $text);
-
-    return $text;
-}
-
-// *
-//  funcion createArticleUrl()
-//  @param int $id es el ID del artículo
-//  @param string $titre es el título del artículo
-//  @return string la URL formateada para el web y el SEO
-// *
-function createArticleUrl( int $id, string $titre): string
-{
-    $titrePropre = slugify($titre);
-    $url = '../pages/articles.php?id=' . $id . '&titre=' . $titrePropre;
-    return $url;
+    $sqlQueryMatches = 'SELECT * FROM `s2_resultats_sportifs`';
+    $bddMatch = $mysqlClient->prepare($sqlQueryMatches);
+    $bddMatch->execute();
+    $Matches = $bddMatch->fetchAll();
 }
