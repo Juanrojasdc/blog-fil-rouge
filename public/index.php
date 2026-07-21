@@ -1,5 +1,4 @@
 <?php
-
 session_start();
 
 // Inclusión de archivos comunes obligatorios
@@ -7,27 +6,33 @@ require_once(__DIR__ . '/../common/db.php');
 require_once(__DIR__ . '/../common/functions.php');
 require_once(__DIR__ . '/../common/variables.php'); 
 
-// inclusion del header.php que contiene la estructura HTML inicial y el menú de navegación
+// 1. Definir la página actual de forma limpia
+$page = $_GET['page'] ?? 'home';
+
+// 2. CASO ESPECIAL LOGIN: Si es la página de login y el usuario envió el formulario por POST,
+// ejecutamos la lógica de verificación ANTES de mostrar cualquier HTML (evita errores de redirección).
+if ($page === 'login' && isset($_POST['mail']) && isset($_POST['mdp'])) {
+    include(__DIR__ . '/../common/dbLogin.php');
+}
+
+// 3. Incluimos la estructura visual superior común del sitio
 include(__DIR__ . '/../common/header.php');
 
-// ENRUTADOR (Routing) - Decide que deside qué página mostrar según el parámetro 'page' en la URL
-if (isset($_GET['page']) && $_GET['page'] === 'articles' && isset($_GET['id'])) {
+// 4. ENRUTADOR (Routing) - Decide qué contenido mostrar según el parámetro 'page'
+if ($page === 'articles' && isset($_GET['id'])) {
     // Si la URL pide un artículo específico
     include(__DIR__ . '/../common/dbArticle.php');
     include(__DIR__ . '/../pages/articles.php');
 } 
-elseif (isset($_GET['page']) && array_key_exists($_GET['page'], $whitelist)) {
-    // Si la URL pide una página permitida en la whitelist (ej: ?page=add)
-    include(__DIR__ . "/../pages/" . $_GET['page'] . ".php");
-} 
-elseif (!isset($_GET['page'])) {
-    // Si no hay parámetro 'page', cargamos la página de inicio por defecto
-    include(__DIR__ . '/../pages/home.php');
+elseif (array_key_exists($page, $whitelist)) {
+    // Si la página solicitada está permitida en la whitelist
+    include(__DIR__ . "/../pages/" . $page . ".php");
 } 
 else {
-    // Si el usuario escribe una página que no existe
+    // Si la página no existe en la whitelist
     echo "<div class='container mt-5'><div class='alert alert-danger'>Erreur 404 : Vous êtes perdu ?</div></div>";
 }
 
-
+// 5. Incluimos el pie de página común del sitio
 include(__DIR__ . '/../common/footer.php');
+

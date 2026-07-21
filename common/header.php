@@ -8,8 +8,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sport 2000 - Actualités</title>
     
-    <!-- CSS de Bootstrap 5 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css" rel="stylesheet">
+
 </head>
 <body>
 
@@ -27,9 +28,9 @@
                     <a class="nav-link active" href="index.php">Articles</a>
                 </li>
                 
-                <?php if (isset($_SESSION['user_connected']) && $_SESSION['user_role'] === 'ADMIN'): ?>
+                <?php if (isset($_SESSION['user_connected']) && $_SESSION['user_role'] === 'admin'): ?>
                     <li class="nav-item">
-                        <a class="nav-link text-success fw-bold" href="index.php?page=add">+ Ajouter un article</a>
+                        <a class="btn btn-outline-success" href="../public/index.php?page=add"><i class="bi bi-plus-circle"></i> Ajouter un article</a>
                     </li>
                 <?php endif; ?>
             </ul>

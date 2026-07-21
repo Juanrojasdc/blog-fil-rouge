@@ -28,13 +28,13 @@ $news = $newsFraiches->fetchAll();
                         </div>
                         
                         <div class="mt-3">
-                            <a href="<?= createArticleUrl((int)$new['id'], $new['titre']); ?>" class="btn btn-sm btn-outline-primary w-100 mb-2">Lire l'article</a>
+                            <a href="<?= createArticleUrl((int)$new['id'], $new['titre']); ?>" class="btn btn-sm btn-outline-primary w-100 mb-2"> <i class="bi bi-eye"></i> Lire l'article</a>
                             
-                            <?php if (isset($_SESSION['user_connected']) && $_SESSION['user_role'] === 'ADMIN'): ?>
+                            <?php if (isset($_SESSION['user_connected']) && $_SESSION['user_role'] === 'admin'): ?>
                                 <div class="d-flex justify-content-between border-top pt-2">
                                     <!--tengo que recordar verificar si todo funciona correctamente -->
-                                    <a class="btn btn-xs btn-outline-dark" href="index.php?page=edit&id=<?= htmlspecialchars($new['id']); ?>">Modifier</a>
-                                    <a class="btn btn-xs btn-outline-danger" href="index.php?page=deletepost&id=<?= htmlspecialchars($new['id']); ?>">Supprimer</a>
+                                    <a class="btn btn-xs btn-outline-dark" href="../public/index.php?page=edit&id=<?= htmlspecialchars($new['id']); ?>"><i class="bi bi-pencil"></i> Modifier</a>
+                                    <a class="btn btn-xs btn-outline-danger" href="../public/index.php?page=deletepost&id=<?= htmlspecialchars($new['id']); ?>"><i class="bi bi-trash"></i> Supprimer</a>
                                 </div>
                             <?php endif; ?>
                         </div>
